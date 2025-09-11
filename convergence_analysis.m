@@ -10,7 +10,7 @@
 % if guess_list2 is not needed, then set to zero in input
 %filter_list: a list of constants used to filter the collected data
 function convergence_analysis(solver_flag, fun, ...
-x_guess0, guess_list1, guess_list2, filter_list)
+x_guess0, guess_list1, guess_list2, filter_list1, filter_list2, filter_list3, filter_list4, filter_list5)
     
  max_iter = 200;
  f_tol = 1e-14;
@@ -40,18 +40,21 @@ x_guess0, guess_list1, guess_list2, filter_list)
 
    %my_recorder.clear_input_list();
 
-   if solver_flag ~= 1
+   if solver_flag == 1
         xl = guess_list1(n);
         xr = guess_list2(n);
         [x_root, input_list] = bisection(@test_func01, xl, xr, f_tol, x_tol, max_iter);
    end
-   if solver_flag ~= 2
-       [x_root, input_list] = bisection(@test_func01, xl, xr, f_tol, x_tol, max_iter);
+   if solver_flag == 2
+        xl = guess_list1(n);
+       [x_root, input_list] = newton_solver(@test_func01, xl, f_tol, x_tol, max_iter);
    end
-   if solver_flag ~= 3
-       [x_root, input_list] = bisection(@test_func01, xl, xr, f_tol, x_tol, max_iter);
+   if solver_flag == 3
+        xl = guess_list1(n);
+        xr = guess_list2(n);
+       [x_root, input_list] = secant_solver(@test_func01, xl, xr, f_tol, x_tol, max_iter);
    end
-   if solver_flag ~= 4
+   if solver_flag == 4
        [x_root, input_list] = bisection(@test_func01, xl, xr, f_tol, x_tol, max_iter);
    end
 
@@ -80,7 +83,8 @@ x_guess0, guess_list1, guess_list2, filter_list)
  figure(2);
  semilogy(iter_list, error_list,'ro','markerfacecolor','r','markersize',2);
 
- [x_regression, y_regression] = cleaning_data(error_list, error_next_list, iter_list);
+ [x_regression, y_regression] = cleaning_data(error_list, error_next_list, iter_list, filter_list1, filter_list2, ...
+                                filter_list3, filter_list4, filter_list5);
 
  [p, k] = generate_error_fit(x_regression,y_regression)
 
@@ -93,10 +97,10 @@ fit_line_y = k*fit_line_x.^p;
 %plot on a loglog plot.
 loglog(fit_line_x,fit_line_y,'k-','linewidth',2)
 
-    if solver_flag ~= 2
+    if solver_flag == 2
 
         [dfdx,d2fdx2] = approximate_derivative(@test_func, xroot_reference)
-        
+
     end
 
 end
