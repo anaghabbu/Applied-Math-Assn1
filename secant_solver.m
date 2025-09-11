@@ -1,6 +1,7 @@
 function xroot = secant_solver(fun, x0, x1, f_tol, x_tol, max_iter)
 
         count = 0;
+        guess_list = [x0, x1];
         f0 = fun(x0);
         f1 = fun(x1);
 
@@ -12,9 +13,13 @@ function xroot = secant_solver(fun, x0, x1, f_tol, x_tol, max_iter)
 
             x2 = x1 - f1*(x1 - x0)/(f1 - f0);
 
+            guess_list = [guess_list, x2];
+
             dx = x2 - x1;
 
             f2 = fun(x2);
+
+            
 
             % guesses(end + 1) = x2
 
