@@ -12,7 +12,7 @@ function convergence_test_code()
     % filter_list4 = 1e-2;
     % filter_list5 = 2;
 
-    solver_flag = 2;
+    solver_flag = 3;
     fun = @test_func01;
     x_guess0 = [-5 5];
     guess_list1 = linspace(-5, .5, 100);
@@ -22,6 +22,7 @@ function convergence_test_code()
     filter_list3 = 1e-14;
     filter_list4 = 1e-2;
     filter_list5 = 2;
+    
 
     convergence_analysis(solver_flag, fun, ...
     x_guess0, guess_list1, guess_list2, filter_list1, ...

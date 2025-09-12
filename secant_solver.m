@@ -1,4 +1,4 @@
-function xroot = secant_solver(fun, x0, x1, f_tol, x_tol, max_iter)
+function [xroot, guess_list] = secant_solver(fun, x0, x1, f_tol, x_tol, max_iter)
 
         count = 0;
         guess_list = [x0, x1];

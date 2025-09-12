@@ -55,7 +55,12 @@ x_guess0, guess_list1, guess_list2, filter_list1, filter_list2, filter_list3, fi
        [x_root, input_list] = secant_solver(@test_func01, xl, xr, f_tol, x_tol, max_iter);
    end
    if solver_flag == 4
-       [x_root, input_list] = bisection(@test_func01, xl, xr, f_tol, x_tol, max_iter);
+       xl = guess_list1(n);
+       my_recorder = input_recorder(); 
+       f_record = my_recorder.generate_recorder_fun(@test_func01);
+       x_root = fzero(f_record, xl);   %, xr, f_tol, x_tol, max_iter);
+       input_list = my_recorder.get_input_list();
+       my_recorder.clear_input_list();
    end
 
 
