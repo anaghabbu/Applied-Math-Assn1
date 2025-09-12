@@ -37,6 +37,7 @@ function [xroot, guess_list] = bisection(fun, Ln, Rn, f_tol, x_tol, max_iter)
         disp("bisection method: no zero crossing")
         return
     end
+    
     xroot = Mn;
     input_list = guess_list;
     

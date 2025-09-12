@@ -15,8 +15,8 @@ x_guess0, guess_list1, guess_list2, filter_list1, filter_list2, filter_list3, fi
  max_iter = 200;
  f_tol = 1e-14;
  x_tol = 1e-14;
- xl = -5;
- xr = 20;
+ xl = x_guess0(1);
+ xr = x_guess0(2);
 
  test_func01(xl)
  test_func01(xr)
@@ -78,10 +78,11 @@ x_guess0, guess_list1, guess_list2, filter_list1, filter_list2, filter_list3, fi
  error_next_list = abs(x_next_guess_list-xroot_reference);
 
  figure(1);
- loglog(error_list,error_next_list,'ro','markerfacecolor','r','markersize',2);
+ loglog(error_list,error_next_list,'ro','markerfacecolor','r','markersize',2)
 
  figure(2);
- semilogy(iter_list, error_list,'ro','markerfacecolor','r','markersize',2);
+ semilogy(iter_list, error_list,'ro','markerfacecolor','r','markersize',2)
+ disp(iter_list)
 
  [x_regression, y_regression] = cleaning_data(error_list, error_next_list, iter_list, filter_list1, filter_list2, ...
                                 filter_list3, filter_list4, filter_list5);
@@ -95,6 +96,7 @@ fit_line_x = 10.^ [-16:.01:1];
 %compute the corresponding y values
 fit_line_y = k*fit_line_x.^p;
 %plot on a loglog plot.
+figure(3)
 loglog(fit_line_x,fit_line_y,'k-','linewidth',2)
 
     if solver_flag == 2

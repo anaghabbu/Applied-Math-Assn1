@@ -1,4 +1,4 @@
-function xroot = newton_solver(fun, xn, f_tol, x_tol, max_iter)
+function [xroot, guess_list] = newton_solver(fun, xn, f_tol, x_tol, max_iter)
 
     dx = 2 *x_tol;
     count = 0;
