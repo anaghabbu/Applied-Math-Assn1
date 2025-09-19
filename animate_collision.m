@@ -40,6 +40,10 @@ function animate_collision(x_wall,y_ground, t_wall,t_ground, egg_params)
     open(writerObj);
 
     %set up the plotting axis
+    fig1 = figure(1);
+    title('Animation of Egg Collision of Parametric Curve Path')
+    xlabel('Units of Distance')
+    ylabel('Units of Distance')
     hold on; axis equal; axis square
     axis([0,40,0,40]);
     %initialize the plot of the square
@@ -78,28 +82,19 @@ function animate_collision(x_wall,y_ground, t_wall,t_ground, egg_params)
         floor = yline(y_ground);
         wall = xline(x_wall);
         
-        
+
         set(box_plot, 'xdata',x_box,'ydata', y_box);
         set(egg_plot, 'xdata',V(1, :),'ydata',V(2, :));
         set(ground_line, 'xdata', floor ,'ydata', wall);
-         
-        % if v_right(1) == x_wall
-        %     set(collision_point, 'xdata', v_right(1) ,'ydata', v_right(2));
-        % 
-        % elseif v_bottom(2) == y_ground
-        %     set(collision_point, 'xdata', v_bottom(1) ,'ydata', v_bottom(2));
-        % else
-        %     return
-        % end
 
         drawnow;
-        pause(.1)
 
         %capture a frame (what is currently plotted)
         current_frame = getframe(fig1);
         %write the frame to the video
         writeVideo(writerObj,current_frame);
-
+        
+        pause(.1)
     end
 
     [x0,y0,theta] = egg_trajectory01(collision_time);
@@ -133,6 +128,7 @@ function animate_collision(x_wall,y_ground, t_wall,t_ground, egg_params)
         %write the frame to the video
         writeVideo(writerObj,current_frame);
     end
+
     %must call close after all frames are written
     close(writerObj);
     

@@ -111,11 +111,12 @@ fit_line_y = k*fit_line_x.^p;
  loglog(error_list,error_next_list,'bo','markerfacecolor','b','markersize',2)
  hold on;
  loglog(x_regression,y_regression,'ro','markerfacecolor','r','markersize',2)
+ title('FZero Convergence Analysis and Fit Line')
+ ylabel('E_n+1 (-)')
+ xlabel('E_n (-)')
  loglog(fit_line_x,fit_line_y,'k-','linewidth',2)
+ legend('Filtered Out Data', 'Filtered Data', 'Fit Line')
  figure(2);
  semilogy(iter_list, error_list,'ro','markerfacecolor','r','markersize',2)
-
- %change axis or fit line region
- %label with legend
 
 end
