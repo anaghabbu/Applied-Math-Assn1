@@ -82,15 +82,13 @@ x_guess0, guess_list1, guess_list2, filter_list1, filter_list2, filter_list3, fi
  error_list = abs(x_guess_list-xroot_reference);
  error_next_list = abs(x_next_guess_list-xroot_reference);
 
- figure(1);
- loglog(error_list,error_next_list,'ro','markerfacecolor','r','markersize',2)
 
- figure(2);
- semilogy(iter_list, error_list,'ro','markerfacecolor','r','markersize',2)
+  [x_regression, y_regression] = cleaning_data(error_list, error_next_list, iter_list, filter_list1, filter_list2, ...
+                                filter_list3, filter_list4, filter_list5);
+
+
  disp(iter_list)
 
- [x_regression, y_regression] = cleaning_data(error_list, error_next_list, iter_list, filter_list1, filter_list2, ...
-                                filter_list3, filter_list4, filter_list5);
 
  [p, k] = generate_error_fit(x_regression,y_regression)
 
@@ -101,13 +99,23 @@ fit_line_x = 10.^ [-16:.01:1];
 %compute the corresponding y values
 fit_line_y = k*fit_line_x.^p;
 %plot on a loglog plot.
-figure(3)
-loglog(fit_line_x,fit_line_y,'k-','linewidth',2)
+
 
     if solver_flag == 2
 
         [dfdx,d2fdx2] = approximate_derivative(@test_func, xroot_reference)
 
     end
+
+ figure(1);
+ loglog(error_list,error_next_list,'bo','markerfacecolor','b','markersize',2)
+ hold on;
+ loglog(x_regression,y_regression,'ro','markerfacecolor','r','markersize',2)
+ loglog(fit_line_x,fit_line_y,'k-','linewidth',2)
+ figure(2);
+ semilogy(iter_list, error_list,'ro','markerfacecolor','r','markersize',2)
+
+ %change axis or fit line region
+ %label with legend
 
 end
